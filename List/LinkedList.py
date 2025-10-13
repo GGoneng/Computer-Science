@@ -17,3 +17,14 @@ class Node:
         if next is not None:
             self.link = next.link
         return next
+    
+class LinkedList: # Head만 관리하면 됨. 데이터는 Node가 관리
+    def __init__(self):
+        self.head = None
+    
+    def isEmpty(self):
+        return self.head == None
+
+    # List는 메모리 부족이 아닌 이상 포화 상태가 안되므로 False 반환
+    def isFull(self):
+        return False
