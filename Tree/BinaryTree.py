@@ -50,3 +50,20 @@ def calc_height(n):
         return hLeft + 1
     else:
         return hRight + 1
+    
+if __name__ == "__main__":
+    d = BTNode('D', None, None)
+    e = BTNode('E', None, None)
+    b = BTNode('B', d, e)
+    f = BTNode('F', None, None)
+    c = BTNode('C', f, None)
+    root = BTNode('A', b, c)
+
+    print("\n In-Order : ", end=""); inorder(root)
+    print("\n Pre-Order : ", end=""); preorder(root)
+    print("\n Post-Order : ", end=""); postorder(root)
+    print("\n Level-Order : ", end=""); levelorder(root)
+    print()
+
+    print(f"노드의 개수 = {count_node(root)}개")
+    print(f"트리의 높이 = {calc_height(root)}")
