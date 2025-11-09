@@ -28,3 +28,35 @@ def make_morse_tree():
             if c == '.':
                 if node.left == None:
                     node.left = BTNode(None, None, None)
+                node = node.left
+            elif c == '-':
+                if node.right == None:
+                    node.right = BTNode(None, None, None)
+                node = node.right
+    
+        node.data = tp[0]
+    return root
+
+def decode(root, code):
+    node = root
+    for c in code:
+        if c == '.': node = node.left
+        elif c == '-': node = node.right
+    return node.data
+
+if __name__ == "__main__":
+    morseCodeTree = make_morse_tree()
+    
+    str = input("입력 문장 : ")
+    mlist = []
+
+    for ch in str:
+        code = encode(ch)
+        mlist.append(code)
+    print("Morse Code: ", mlist)
+    print("Decoding: ", end='')
+
+    for code in mlist:
+        ch = decode(morseCodeTree, code)
+        print(ch, end='')
+    print()
