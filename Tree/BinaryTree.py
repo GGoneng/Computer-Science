@@ -6,6 +6,12 @@ class BTNode:
         self.left = left
         self.right = right
 
+    def isLeaf(self):
+        if self.left == None and self.right == None:
+            return True
+        else:
+            return False
+
 def preorder(n):
     if n is not None:
         print(n.data, end=" ")
