@@ -19,6 +19,32 @@ def insertion_sort(A):
             j -= 1
         A[j + 1] = key
 
+def partition(A, left, right):
+    pivot = A[left]
+    low = left + 1
+    high = right
+
+    while (low < right):
+        while low <= right and A[low] <= pivot:
+            low += 1
+        
+        while high >= left and A[high] >= pivot:
+            high -= 1
+        
+        if low < high:
+            A[low], A[high] = A[high], A[low]
+
+    A[left], A[high] = A[high], A[left]
+    return high
+
+
+def quick_sort(A, left, right):
+    if left < right:
+        q = partition(A, left, right)
+        quick_sort(A, left, q - 1)
+        quick_sort(A, q + 1, right)
+
+
 if __name__ == "__main__":
     data = [6, 3, 7, 4, 9, 1, 5, 2, 8]
     print("Original : ", data)
