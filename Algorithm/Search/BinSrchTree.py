@@ -48,3 +48,29 @@ def insert_bst(root, node):
 
     return root
     
+# 이진 탐색 트리의 삭제 연산
+def delete_bst(root, key):
+    if root == None:
+        return root
+
+    if key < root.key:
+        root.left = delete_bst(root.left, key)
+    elif key > root.key:
+        root.right = delete_bst(root.right, key)
+    
+    else:
+        if root.left == None:
+            return root.right
+        
+        if root.right == None:
+            return root.left
+        
+        succ = root.right
+        while succ.left != None:
+            succ = succ.left
+
+        root.key = succ.key
+        root.value = succ.value
+        root.right = delete_bst(root.right, succ.key)
+    
+    return root
