@@ -53,24 +53,72 @@ def delete_bst(root, key):
     if root == None:
         return root
 
+    # key 탐색
     if key < root.key:
         root.left = delete_bst(root.left, key)
     elif key > root.key:
         root.right = delete_bst(root.right, key)
     
+    # key가 루트의 키와 같으면 root를 삭제
     else:
+        # Case 1 : 단말 노드 or Case 2 : 오른쪽 자식만 있는 경우
         if root.left == None:
             return root.right
         
+        # Case 2 : 왼쪽 자식만 있는 경우
         if root.right == None:
             return root.left
         
+        # Case 3 : 두 자식이 모두 있는 경우
+        # 후계자 찾기 (오른쪽 서브트리 최소 노드)
         succ = root.right
+
+        # 최소 노드 찾기
         while succ.left != None:
             succ = succ.left
 
+        # root의 key와 value를 후계자 것으로 변경
         root.key = succ.key
         root.value = succ.value
+
+        # 후계자 남은 데이터 제거
         root.right = delete_bst(root.right, succ.key)
     
     return root
+
+def preorder(n):
+    if n is not None:
+        print(n.value, end=" ")
+        preorder(n.left)
+        preorder(n.right)
+
+def print_node(msg, n):
+    print(msg, n.value if n != None else "탐색 실패")
+
+def print_tree(msg, r):
+    print(msg, end = "")
+    preorder(r)
+    print()
+
+if __name__ == "__main__":
+    data = [(6, "여섯"), (8, "여덟"), (2, "둘"), (4, "넷"), (7, "일곱"),
+            (5, "다섯"), (1, "하나"), (9, "아홉"), (3, "셋"), (0, "영")]
+    
+    root = None
+    for i in range(0, len(data)):
+        root = insert_bst(root, BSTNode(data[i][0], data[i][1]))
+    
+    print_tree("최초 : ", root)
+
+    n = search_bst(root, 3);   print_node("srch 3 : ", n)
+    n = search_bst(root, 8);   print_node("srch 8 : ", n)
+    n = search_bst(root, 0);   print_node("srch 0 : ", n)
+    n = search_bst(root, 10);  print_node("srch 10 : ", n)
+
+    n = search_value_bst(root, "둘");  print_node("srch 둘 : ", n)
+    n = search_value_bst(root, "열");  print_node("srch 열 : ", n)
+
+    root = delete_bst(root, 7);  print_tree("del 7 : ", root)
+    root = delete_bst(root, 8);  print_tree("del 8 : ", root)
+    root = delete_bst(root, 2);  print_tree("del 2 : ", root)
+    root = delete_bst(root, 6);  print_tree("del 6 : ", root)
