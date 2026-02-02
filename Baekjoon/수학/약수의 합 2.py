@@ -12,33 +12,7 @@ input = int(input())
 
 total = 0
 
-def div_calc(input):
-    div_list = []
-
-    for i in range(1, int(input ** (1 / 2)) + 1):
-        if input % i == 0:
-            div_list.append(i)
-    
-    return div_list
-
-def extend_div(input, div_list):
-    extend_list = []
-
-    for div in div_list:
-        if div == input ** (1 / 2) :
-            extend_list.append(0)
-        else:
-            extend_list.append(input // div)
-    
-    return extend_list
-
 for i in range(1, input + 1):
-    div_list = div_calc(i)
-    extend_list = extend_div(i, div_list)
-
-    div_list.extend(extend_list)
-
-    total += sum(div_list)
-
+    total += i * (input // i)
 
 print(total)
